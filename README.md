@@ -24,11 +24,16 @@ This tutorial demonstrates how to use **AWS Glue** to run an ETL (Extract, Trans
 - Convert the CSV to JSON using an online tool.
 - Remove any unnecessary array brackets in the JSON file using a text editor (e.g., VS Code).
 
+![CSV To JSON file](https://github.com/user-attachments/assets/4664df67-c5b0-4a83-a81a-797b2384a80d)
+
+
 ## Step 2: Create IAM Role for AWS Glue
 - Go to the **IAM dashboard** on AWS and create a new role for Glue.
   - **Role Type**: AWS Glue can call other AWS services on your behalf.
   - **Permissions**: Assign PowerUserAccess to the role.
   - **Role Name**: `covid-glue-role`.
+![IAM Role for AWS Glue](https://github.com/user-attachments/assets/602bd21f-4ebf-4349-b771-9d00744deab1)
+
 
 ## Step 3: Setup S3 Buckets
 Create the following S3 buckets:
@@ -36,15 +41,25 @@ Create the following S3 buckets:
 2. **Output Data Bucket**: `covid-output-data` (store the transformed data).
 3. **Script Bucket**: `covid-scripts` (store Glue scripts).
 
+![S3 buckets for input, scripts and output](https://github.com/user-attachments/assets/bad7fc56-ca77-4eba-9560-f0ec59336e3a)
+
+
 Upload the JSON file to the input data bucket.
 
 ## Step 4: Create Glue Database and Crawler
 1. **Create Database**: Go to the Glue dashboard and create a new database (e.g., `covid-db`).
+[Create Database](https://github.com/user-attachments/assets/672a012e-f417-471e-97e1-927c34460b70)
+   
 2. **Create a Crawler**:
    - Set the data source as the S3 input data bucket.
    - Select the IAM role (`covid-glue-role`).
    - Set the target database to `covid-db`.
    - Run the crawler to inspect the JSON data and create a table in the Glue data catalog (e.g., `covid-input-table`).
+  
+  ![Crawler](https://github.com/user-attachments/assets/9a9764c8-f1f1-45e3-90fa-dfe52e080a2a)
+  ![Crawler 2](https://github.com/user-attachments/assets/4f0a2acd-556e-4ebb-aa18-0bf361eed51b)
+
+
 
 ## Step 5: Create and Run Glue ETL Job
 1. Go to Glue Studio and create an **ETL job**.
@@ -57,9 +72,14 @@ Upload the JSON file to the input data bucket.
      - Set the script path to the script in `covid-scripts`.
 2. Run the job.
 
+![Glue Studio](https://github.com/user-attachments/assets/b903e306-7b80-49cf-8d25-ef2b7c9228b9)
+
+
 ## Step 6: Monitor the Job and Retrieve Output
 - Monitor the ETL job from the Monitoring tab.
 - Check the S3 output bucket to verify that a CSV file has been generated.
+![Job Monitoring](https://github.com/user-attachments/assets/bf6cd1b5-b574-4e5f-947e-165c7e966a82)
+
 
 ## Step 7: Running Crawler to Generate the Data Catalog
 1. Create a new crawler for the input data in Glue.
